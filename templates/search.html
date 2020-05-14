@@ -1,0 +1,54 @@
+{% extends "layout.html" %} {% block content %}
+
+
+
+<h1>Search for a book:</h1>
+
+<form method="POST" action="/search">
+    <fieldset class="search">
+        {{ form.search.label }} {{ form.search(placeholder='Search') }} {% if form.search.errors %}
+        <ul class="errors">
+            {% for error in form.search.errors %}
+            <li>{{ error }}</li>{% endfor %}
+        </ul>
+        {% endif %}
+    </fieldset>
+
+    <div class="submit-button">
+        {{ form.submit }}
+    </div>
+</form>
+
+{% if results|length %}
+<h4>the results are : </h4>
+<table>
+
+
+    <tr>
+        <th>isbn</th>
+        <th>title</th>
+        <th>author</th>
+        <th>year</th>
+    </tr>
+    {% for result in results %}
+    <tr>
+
+        <th><a href="api/{{result['isbn']}}"> {{result['isbn']}}</th>
+
+            <th><a href="/book/{{result['title']}}"> {{result['title']}}</th>
+
+            <th> {{result['author']}}</th>
+
+            <th> {{result['year']}}</th>
+
+        </tr>
+        {% endfor %} 
+
+    </table>
+{% else %}
+
+<h6> No results found. Please try again.</h6>
+
+{% endif %}
+
+    {% endblock %}

@@ -1,0 +1,22 @@
+{% extends "layout.html" %} {% block content %}
+
+<h1>hello {{ current_user.full_name }} your account details are :</h1>
+
+<ul>
+
+    <li>your id is :
+        <h1>{{ current_user.id }}</h1>
+    </li>
+    <li>your full name is :
+        <h1>{{ current_user.full_name }}</h1>
+    </li>
+    <li>your username is :
+        <h1>{{ current_user.username }}</h1>
+    </li>
+    <li>your email is :
+        <h1>{{ current_user.email }}</h1>
+    </li>
+
+</ul>
+
+{% endblock content %}

@@ -1,0 +1,76 @@
+{% extends "layout.html" %} {% block content %}
+<section class="content-container">
+    {% set back_link = request.referrer -%}
+
+    <div class="info-section">
+        <div id="title" class="centered">
+            <h2>{{ book_title.title }}</h2>
+        </div>
+        <div class="book-details">
+            <h3>Book details</h3>
+            <ul>
+                <li><span>Title:</span>{{ book_title.title }}</li>
+                <li><span>ISBN:</span>{{ book_title.isbn }}</li>
+                <li><span>Author:</span>{{ book_title.author }}</li>
+                <li><span>year:</span>{{ book_title.year }}</li>
+                <li><span>rating in goodreads:</span>{{ avg_rating }}</li>
+                <li><span>work rating count in goodreads:</span>{{ work_rating_count }}</li>
+            </ul>
+
+        </div>
+    </div>
+    <div class="reviews-container">
+        <h2 class="centered">REVIEWS</h2>
+        <div class="review-section">
+            {% if all_reviews %} {% for review in all_reviews %}
+            <div class="reviews">
+                <h4>{{ this_user.full_name }}</h4>
+                <h4>{{ this_user.username }}</h4>
+                <div class="details">
+                    <span>Rated {{ "&#11088;"|safe * review.rating}} </span>
+                    <!--input type="checkbox" id="expanded"-->
+                    <p>{{ review.review }}</p>
+                    <!--label for="expanded" role="button">read more</label-->
+
+                </div>
+            </div>
+            {% endfor %} {% else %}
+            <h3 id="no-reviews" class='centered'>No Reviews Available yet !! be the first one to add a review to this book</h3>
+            {% endif %}
+        </div>
+    </div>
+    <div id="user-form">
+        <h3>ADD a Reviews:</h3>
+        <form method="POST" action="" class="post-form">
+            {{ form.csrf_token }}
+            <div class="form-check form-check-inline">
+                {{ form.rating.label(class="form-check-label") }} {% for subfield in form.rating %}
+                <label for="">
+              <ul>
+                <li>
+                  {{ subfield }}
+                  {{ subfield.label(class="form-check-input") }}
+                </li>
+              </ul>
+            </label> {% endfor %} {% if form.rating.errors %}
+                <div class="alert alert-danger">
+                    {% for error in form.rating.errors %} {{ error }} {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                {{ form.review.label(class="form-control-label") }} {% if form.review.errors %} {{ form.review(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.review.errors %}
+                    <span>{{ error }}</span> {% endfor %}
+                </div>
+                {% else %} {{ form.review(class="form-text") }} {% endif %}
+                <div id="submit-container">
+                    {{ form.submit(class="btn btn-outline-info form-submit") }}
+                </div>
+            </div>
+        </form>
+    </div>
+
+</section>
+{% endblock content %}

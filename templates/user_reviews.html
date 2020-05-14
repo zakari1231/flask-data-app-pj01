@@ -1,0 +1,27 @@
+{% extends "layout.html" %} {% block content %} {% if all_reviews %}
+
+<p class='text-muted'> liste of all reviews
+    <ul class="list-group">
+        {% for review in all_reviews %}
+        <li class="list-group-item list-group-item-light">
+
+            <div class="reviews">
+                <h4>{{ this_user.username }}</h4>
+                <h5>{{ this_user.full_name }}</h5>
+                <h6>{{ book_title['title'] }}</h6>
+
+                <div class="details">
+                    <span>Rated {{ "&#11088;"|safe * review.rating}} </span>
+                    <!--input type="checkbox" id="expanded"-->
+                    <p>{{ review.review }}</p>
+                    <!--label for="expanded" role="button">read more</label-->
+
+
+        </li>
+        {% endfor %} {% else %}
+        <h3 id="no-reviews" class='centered'>you don't have any reviews yet !!!</h3>
+        {% endif %}
+    </ul>
+
+
+    {% endblock %}

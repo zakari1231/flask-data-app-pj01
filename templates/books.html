@@ -1,0 +1,35 @@
+<head>
+    <title>list of all the books</title>
+</head>
+{% extends "layout.html" %} {% block content %}
+
+<body>
+
+    <table>
+
+        <tr>
+            <th>isbn</th>
+            <th>title</th>
+            <th>author</th>
+            <th>year</th>
+        </tr>
+        {% for result in list_of_book %}
+        <tr>
+
+            <th><a href="api/{{result['isbn']}}"> {{result['isbn']}}</th>
+
+            <th><a href="book/{{result['title']}}"> {{result['title']}}</th>
+
+            <th> {{result['author']}}</th>
+
+            <th> {{result['year']}}</th>
+
+        </tr>
+        {% endfor %} 
+
+    </table>
+
+
+</body>
+
+{% endblock %}
