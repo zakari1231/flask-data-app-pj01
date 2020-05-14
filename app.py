@@ -240,9 +240,11 @@ def all_reviews():
 def user_reviews():
     book_id = Reviews.book_id
     user_id = Reviews.user_id
+    review = Reviews.review
     this_user = current_user
-    book_title = Books.query.filter_by(id=book_id).first()
-    all_reviews = Reviews.query.filter_by(book_id=book_id).all()
+    # this_user = User.query.filter_by(id=user_id).first()
+    book_title = Books.query.filter(Reviews.book_id==Books.id).all()
+    all_reviews = Reviews.query.filter(and_(Reviews.user_id==this_user.id, Reviews.book_id==Books.id)).all()
     #all_reviews = Reviews.query.all()
 
     return render_template('user_reviews.html', title='all reviews', all_reviews = all_reviews, this_user=this_user, book_title=book_title)
