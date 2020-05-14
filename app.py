@@ -30,7 +30,7 @@ def unauthorized():
 
 
 #database
-app.config['DATABASE_URL'] = 'postgres://tpkqhqnetayrsu:23c139d1b303cb7ddf334cce450d0bef1e0a77aa5fbf00995569b0d9416f90fd@ec2-3-223-21-106.compute-1.amazonaws.com:5432/dk1prhbsjkpq9'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://tpkqhqnetayrsu:23c139d1b303cb7ddf334cce450d0bef1e0a77aa5fbf00995569b0d9416f90fd@ec2-3-223-21-106.compute-1.amazonaws.com:5432/dk1prhbsjkpq9'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] =False
 #INT DB 
 db = SQLAlchemy(app)
