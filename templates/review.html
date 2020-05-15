@@ -24,8 +24,8 @@
         <div class="review-section">
             {% if all_reviews %} {% for review in all_reviews %}
             <div class="reviews">
-                <h4>{{ this_user.full_name }}</h4>
-                <h4>{{ this_user.username }}</h4>
+                <h4>{{ another_user.full_name }}</h4>
+                <h4>{{ another_user.username }}</h4>
                 <div class="details">
                     <span>Rated {{ "&#11088;"|safe * review.rating}} </span>
                     <!--input type="checkbox" id="expanded"-->

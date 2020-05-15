@@ -196,6 +196,8 @@ def book(title):
     
     all_reviews = Reviews.query.filter_by(book_id=book_title.id).all()
 
+    another_user = User.query.filter(and_(Reviews.user_id==User.id, Reviews.book_id==book_title.id)).first()
+
     goodreview = requests.get("https://www.goodreads.com/book/review_counts.json", params={"key": "R9f6I7zDEfl0wwvQGGBuQ", "isbns": book_title.isbn})
     data = goodreview.json()
     avg_rating = data["books"][0]["average_rating"]
@@ -213,7 +215,7 @@ def book(title):
             db.session.commit()
             flash('Your review was added successfully','success')
 
-    return render_template('review.html',form=form, book_title= book_title, all_reviews=all_reviews, this_user=this_user, work_rating_count=work_rating_count, avg_rating=avg_rating)
+    return render_template('review.html',form=form, book_title= book_title, all_reviews=all_reviews, this_user=this_user, work_rating_count=work_rating_count, avg_rating=avg_rating, another_user=another_user)
 
 
 @app.route("/account")
@@ -242,10 +244,11 @@ def user_reviews():
     user_id = Reviews.user_id
     review = Reviews.review
     this_user = current_user
-    # this_user = User.query.filter_by(id=user_id).first()
-    book_title = Books.query.filter(Reviews.book_id==Books.id).all()
+    
     all_reviews = Reviews.query.filter(and_(Reviews.user_id==this_user.id, Reviews.book_id==Books.id)).all()
+    book_title = Books.query.filter(Reviews.book_id==Books.id)
     #all_reviews = Reviews.query.all()
+    #book_title = Books.query.filter(and_(Books.id==book_id, Reviews.user_id==this_user.id)).first()
 
     return render_template('user_reviews.html', title='all reviews', all_reviews = all_reviews, this_user=this_user, book_title=book_title)
 
@@ -283,4 +286,4 @@ def api(isbn):
 
 #server 
 if __name__ == '__main__':
-    app.run(debug=False)
+    app.run(debug=True)
